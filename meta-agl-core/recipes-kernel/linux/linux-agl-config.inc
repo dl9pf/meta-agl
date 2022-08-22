@@ -43,6 +43,7 @@ AGL_KCONFIG_FRAGMENTS += " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'selinux', 'selinux.cfg', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd-required.cfg', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'systemd-sandbox.cfg', '', d)} \
+    lttng.cfg \
 "
 
 AGL_KCONFIG_FRAGMENTS += " ${@bb.utils.contains('AGL_XEN_GUEST_WANTED','1','xen_domu.cfg','',d)}"
