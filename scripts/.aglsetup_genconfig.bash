@@ -407,7 +407,7 @@ function genconfig() {
 	info "   Features: $FEATURES"
 
 	# step 1: run usual OE setup to generate conf dir
-	export TEMPLATECONF=$(cd $SCRIPTDIR/../templates/base && pwd -P)
+	export TEMPLATECONF=$(cd $SCRIPTDIR/../meta-agl-core/conf/templates/base && pwd -P)
 	debug "running oe-init-build-env with TEMPLATECONF=$TEMPLATECONF"
 	info "   Running $METADIR/external/poky/oe-init-build-env"
 	info "   Templates dir: $TEMPLATECONF"
@@ -417,7 +417,8 @@ function genconfig() {
 	cd $CURDIR
 
 	# step 2: concatenate other remaining fragments coming from base
-	process_fragments $TEMPLATECONF
+	FRAGMENTS=$(cd $SCRIPTDIR/../templates/base && pwd -P)
+	process_fragments $FRAGMENTS
 
 	# step 3: fragments for machine
 	process_fragments $(find_machine_dir $MACHINE)
@@ -557,6 +558,7 @@ info "OK"
 infon "Generating setup file: $BUILDDIR/agl-init-build-env ... "
 
 cat <<EOF >$BUILDDIR/agl-init-build-env
+export TEMPLATECONF=${METADIR}/meta-agl/meta-agl-core/conf/templates/base
 . $METADIR/external/poky/oe-init-build-env $BUILDDIR
 if [ -n "\$DL_DIR" ]; then
 	BB_ENV_PASSTHROUGH_ADDITIONS="\$BB_ENV_PASSTHROUGH_ADDITIONS DL_DIR"
