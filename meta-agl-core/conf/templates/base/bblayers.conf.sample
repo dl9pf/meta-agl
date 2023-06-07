@@ -15,7 +15,6 @@ METADIR  := "${@os.path.abspath('##OEROOT##/../..')}"
 YOCTO_LAYERS = " \
   ${METADIR}/external/poky/meta \
   ${METADIR}/external/poky/meta-poky \
-  ${METADIR}/external/meta-lts-mixins_rust-1.68 \
   "
 #  this is added for the boards where necessary, not globally
 #  ${METADIR}/external/poky/meta-yocto-bsp \
