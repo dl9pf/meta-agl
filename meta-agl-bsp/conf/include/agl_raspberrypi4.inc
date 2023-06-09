@@ -11,7 +11,10 @@ RPI_USE_U_BOOT = "1"
 ENABLE_UART ?= "1"
 
 # For libomxil
-#LICENSE_FLAGS_ACCEPTED = "commercial"
+#LICENSE_FLAGS_ACCEPTED += "commercial"
+
+# For linux-firmware-rpidistro
+LICENSE_FLAGS_ACCEPTED += "synaptics-killswitch"
 
 IMAGE_INSTALL:append = " kernel-modules linux-firmware-rpidistro-bcm43430 linux-firmware-rpidistro-bcm43455 create-combined-dtb "
 
