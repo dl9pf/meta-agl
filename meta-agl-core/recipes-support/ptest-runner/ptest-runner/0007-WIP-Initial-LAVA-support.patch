@@ -1,4 +1,4 @@
-From 552f06e025493f7e634ea9e27489861b88f45555 Mon Sep 17 00:00:00 2001
+From bdcbb0e78bbffe45719d0a27954544120f37442a Mon Sep 17 00:00:00 2001
 From: Tim Orling <timothy.t.orling@linux.intel.com>
 Date: Mon, 15 Oct 2018 18:30:42 -0700
 Subject: [PATCH] Initial LAVA support
@@ -24,13 +24,12 @@ Signed-off-by: Tim Orling <timothy.t.orling@linux.intel.com>
 [updated for ptest-runner 2.4.1]
 [updated for ptest-runner 2.4.2]
 Signed-off-by: Scott Murray <scott.murray@konsulko.com>
-
 ---
  flags.h | 10 ++++++++++
  main.c  |  9 ++++++++-
- utils.c | 15 +++++++++++++++
+ utils.c | 17 ++++++++++++++++-
  utils.h |  2 +-
- 4 files changed, 34 insertions(+), 2 deletions(-)
+ 4 files changed, 35 insertions(+), 3 deletions(-)
  create mode 100644 flags.h
 
 diff --git a/flags.h b/flags.h
@@ -85,7 +84,7 @@ index 31e4dd5..f12d6d6 100644
  				print_usage(stdout, argv[0]);
  				exit(1);
 diff --git a/utils.c b/utils.c
-index a67ac11..0c081ce 100644
+index 59b8b77..30423c4 100644
 --- a/utils.c
 +++ b/utils.c
 @@ -49,6 +49,7 @@
@@ -96,28 +95,30 @@ index a67ac11..0c081ce 100644
  
  #define GET_STIME_BUF_SIZE 1024
  #define WAIT_CHILD_BUF_MAX_SIZE 1024
-@@ -483,6 +484,7 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
- 		fprintf(fp, "START: %s\n", progname);
- 		PTEST_LIST_ITERATE_START(head, p)
+@@ -425,6 +426,7 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
+ 			}
+ 
  			char *ptest_dir = strdup(p->run_ptest);
 +			char *ptest = strdup(p->ptest);
  			if (ptest_dir == NULL) {
  				rc = -1;
  				break;
-@@ -525,6 +527,9 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
+@@ -477,7 +479,10 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
  					fprintf(fp, "ERROR: setpgid() failed, %s\n", strerror(errno));
  				}
  
+-				time_t start_time= time(NULL);
 +				if (opts.flags & LAVA_SIGNAL_ENABLE) {
 +					fprintf(stdout, "<LAVA_SIGNAL_STARTTC %s>\n", ptest);
 +				}
- 				sttime = time(NULL);
- 				fprintf(fp, "%s\n", get_stime(stime, GET_STIME_BUF_SIZE, sttime));
++				time_t start_time = time(NULL);
+ 				fprintf(fp, "%s\n", get_stime(stime, GET_STIME_BUF_SIZE, start_time));
  				fprintf(fp, "BEGIN: %s\n", ptest_dir);
-@@ -548,6 +553,16 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
+ 
+@@ -594,6 +599,16 @@ run_ptests(struct ptest_list *head, const struct ptest_options opts,
  
  				fprintf(fp, "END: %s\n", ptest_dir);
- 				fprintf(fp, "%s\n", get_stime(stime, GET_STIME_BUF_SIZE, entime));
+ 				fprintf(fp, "%s\n", get_stime(stime, GET_STIME_BUF_SIZE, end_time));
 +				if (opts.flags & LAVA_SIGNAL_ENABLE) {
 +					char result[5]; // pass\0, fail\0, skip\0
 +
@@ -130,7 +131,7 @@ index a67ac11..0c081ce 100644
 +				}
  			}
  			free(ptest_dir);
- 		PTEST_LIST_ITERATE_END
+ 			do_close(&pipefd_stdout[PIPE_READ]);
 diff --git a/utils.h b/utils.h
 index 04fc666..ad702d8 100644
 --- a/utils.h
@@ -146,3 +147,6 @@ index 04fc666..ad702d8 100644
  extern void check_allocation1(void *, size_t, char *, int, int);
  extern struct ptest_list *get_available_ptests(const char *);
  extern int print_ptests(struct ptest_list *, FILE *);
+-- 
+2.37.3
+
