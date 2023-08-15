@@ -29,3 +29,10 @@ BB_SIGNATURE_HANDLER = "OEEquivHash"
 
 PRSERV_HOST = "${AGL_HOST_PRSERV}:8585"
 
+
+# Workaround for CI builds since YP dunfell v3.1.27
+# until uninative is fixed or builders are uprev'd.
+UNINATIVE_VERSION:forcevariable = "3.9"
+UNINATIVE_CHECKSUM[aarch64] = "de35708c95c34573af140da910132c3291ba4fd26ebf7b74b755ada432cdf07b"
+UNINATIVE_CHECKSUM[i686] = "adac07b08adb88eb26fc7fd87fee0cec9d5be167bf7c5ffd3a549a2a6699c29c"
+UNINATIVE_CHECKSUM[x86_64] = "3dd82c3fbdb59e87bf091c3eef555a05fae528eeda3083828f76cd4deaceca8b"
