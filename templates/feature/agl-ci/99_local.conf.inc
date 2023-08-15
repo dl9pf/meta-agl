@@ -34,7 +34,9 @@ IMAGE_INSTALL:append = " curl"
 
 # Workaround for CI builds since YP kirkstone v4.0.11
 # until uninative is fixed or builders are uprev'd.
-UNINATIVE_VERSION:forcevariable = "3.9"
-UNINATIVE_CHECKSUM[aarch64] = "de35708c95c34573af140da910132c3291ba4fd26ebf7b74b755ada432cdf07b"
-UNINATIVE_CHECKSUM[i686] = "adac07b08adb88eb26fc7fd87fee0cec9d5be167bf7c5ffd3a549a2a6699c29c"
-UNINATIVE_CHECKSUM[x86_64] = "3dd82c3fbdb59e87bf091c3eef555a05fae528eeda3083828f76cd4deaceca8b"
+UNINATIVE_MAXGLIBCVERSION = "2.37"
+UNINATIVE_VERSION:forcevariable = "4.1"
+UNINATIVE_URL = "http://downloads.yoctoproject.org/releases/uninative/${UNINATIVE_VERSION}/"
+UNINATIVE_CHECKSUM[aarch64] = "b6ff9171aa7d3828bc81197822e804725908856bbd488bf412121cc0deddcb60"
+UNINATIVE_CHECKSUM[i686] = "6354fd2e09af1f111bad5e34ce7af4f9ad7cd266188af7eeceaeb982afd5354b"
+UNINATIVE_CHECKSUM[x86_64] = "f83eca543170adfd2432b135ca655922a4303622d73cc4b13e92b973cdf49e3a"
