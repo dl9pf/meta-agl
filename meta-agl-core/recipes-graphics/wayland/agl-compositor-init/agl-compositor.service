@@ -3,6 +3,10 @@
 #
 # AGL compositor and Weston must be built with systemd support, and your
 # weston.ini must load the plugin systemd-notify.so.
+#
+# Attention:
+# If you will add new tty dependency setting, you need to update 
+# agl-compositor-guest.conf.
 [Unit]
 Description=AGL compositor
 Documentation=man:weston(1) man:weston.ini(5)
