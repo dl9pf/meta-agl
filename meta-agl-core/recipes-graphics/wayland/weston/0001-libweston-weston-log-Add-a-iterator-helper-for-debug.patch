@@ -1,4 +1,4 @@
-From d5168b8eb0d881a0a6029c0b348a739147317238 Mon Sep 17 00:00:00 2001
+From d8517b45bf11f5a1a838637a0474375549292d9a Mon Sep 17 00:00:00 2001
 From: Marius Vlad <marius.vlad@collabora.com>
 Date: Mon, 29 May 2023 16:30:02 +0300
 Subject: [PATCH] libweston/weston-log: Add a iterator helper for debug scope
@@ -14,7 +14,10 @@ using the weston-debug private extension. libweston users can use this
 directly to know which scopes they can subscribe to, and there's no need
 to have a client implementation for the weston-debug protocol.
 
+Upstream-Status: Pending
+
 Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
+
 ---
  include/libweston/weston-log.h    | 10 ++++
  libweston/weston-log.c            | 63 +++++++++++++++++++++++
@@ -24,10 +27,10 @@ Signed-off-by: Marius Vlad <marius.vlad@collabora.com>
  create mode 100644 tests/iterate-debug-scopes-test.c
 
 diff --git a/include/libweston/weston-log.h b/include/libweston/weston-log.h
-index aeb7768b..70f41675 100644
+index 1786dea..818d9de 100644
 --- a/include/libweston/weston-log.h
 +++ b/include/libweston/weston-log.h
-@@ -134,6 +134,16 @@ weston_log_subscription_iterate(struct weston_log_scope *scope,
+@@ -136,6 +136,16 @@ weston_log_subscription_iterate(struct weston_log_scope *scope,
  void
  weston_log_flight_recorder_display_buffer(FILE *file);
  
@@ -45,10 +48,10 @@ index aeb7768b..70f41675 100644
  }
  #endif
 diff --git a/libweston/weston-log.c b/libweston/weston-log.c
-index 276fde26..8b4c78a5 100644
+index 93f95c9..5d6ff2b 100644
 --- a/libweston/weston-log.c
 +++ b/libweston/weston-log.c
-@@ -1009,3 +1009,66 @@ weston_log_subscription_iterate(struct weston_log_scope *scope,
+@@ -1057,3 +1057,66 @@ weston_log_subscription_iterate(struct weston_log_scope *scope,
  
  	return container_of(node, struct weston_log_subscription, source_link);
  }
@@ -117,7 +120,7 @@ index 276fde26..8b4c78a5 100644
 +}
 diff --git a/tests/iterate-debug-scopes-test.c b/tests/iterate-debug-scopes-test.c
 new file mode 100644
-index 00000000..82c6c5c8
+index 0000000..82c6c5c
 --- /dev/null
 +++ b/tests/iterate-debug-scopes-test.c
 @@ -0,0 +1,84 @@
@@ -206,12 +209,12 @@ index 00000000..82c6c5c8
 +       iterate_debug_scopes(compositor);
 +}
 diff --git a/tests/meson.build b/tests/meson.build
-index d8e96e77..e52ff5a6 100644
+index 1d59a93..7908896 100644
 --- a/tests/meson.build
 +++ b/tests/meson.build
-@@ -224,6 +224,12 @@ tests = [
+@@ -269,6 +269,12 @@ tests = [
  		],
- 		'dep_objs': [ dep_lib_desktop ]
+ 		'dep_objs': [ dep_libweston_public ]
  	},
 +	{	'name': 'iterate-debug-scopes',
 +		'sources': [
@@ -221,7 +224,4 @@ index d8e96e77..e52ff5a6 100644
 +	},
  ]
  
- tests_standalone = [
--- 
-2.40.1
-
+ if get_option('renderer-gl')
