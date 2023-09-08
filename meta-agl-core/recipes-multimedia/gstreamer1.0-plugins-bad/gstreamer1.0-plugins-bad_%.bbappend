@@ -1,2 +1,1 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
-SRC_URI:append = "file://0001-Added-appid-and-title-support.patch"
+require ${@bb.utils.contains('AGL_FEATURES', 'aglcore', 'gstreamer1.0-plugins-bad_aglcore.inc', '', d)}
