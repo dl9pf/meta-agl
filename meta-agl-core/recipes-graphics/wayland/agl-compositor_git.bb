@@ -30,6 +30,8 @@ require recipes-graphics/wayland/required-distro-features.inc
 
 PACKAGES =+ "agl-shell-grpc-server"
 
+LDFLAGS:append:riscv64 = " -Wl,--no-as-needed -latomic -Wl,--as-needed"
+
 FILES:${PN} = " \
     ${bindir}/agl-compositor \
     ${bindir}/agl-screenshooter \

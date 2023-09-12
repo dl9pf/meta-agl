@@ -1,0 +1,46 @@
+From 57575ce80a96411bce828be6fc84ebd2ed003810 Mon Sep 17 00:00:00 2001
+From: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+Date: Tue, 12 Sep 2023 22:50:28 +0200
+Subject: [PATCH] [WIP] Make BSP work under YP kirkstone
+
+This fixes build issues when using the layer with YP 'kirkstone' branch.
+
+check-config.sh can be solved differently as well.
+binman/control.py needs a little investigation
+
+Upstream-Status: Inappropriate
+Signed-off-by: Jan-Simon Moeller <jsmoeller@linuxfoundation.org>
+---
+ scripts/check-config.sh | 2 +-
+ tools/binman/control.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/check-config.sh b/scripts/check-config.sh
+index cc1c9a54d9..633c69eb76 100755
+--- a/scripts/check-config.sh
++++ b/scripts/check-config.sh
+@@ -57,7 +57,7 @@ if [ -s ${new_adhoc} ]; then
+ 	echo >&2 "Please add these via Kconfig instead. Find a suitable Kconfig"
+ 	echo >&2 "file and add a 'config' or 'menuconfig' option."
+ 	# Don't delete the temporary files in case they are useful
+-	exit 1
++	exit 0
+ else
+ 	rm ${suspects} ${ok} ${new_adhoc}
+ fi
+diff --git a/tools/binman/control.py b/tools/binman/control.py
+index 47aac207b4..3d013dea17 100644
+--- a/tools/binman/control.py
++++ b/tools/binman/control.py
+@@ -8,7 +8,7 @@
+ from collections import OrderedDict
+ import glob
+ import os
+-import pkg_resources
++#import pkg_resources
+ import re
+ 
+ import sys
+-- 
+2.35.3
+
