@@ -1,10 +1,12 @@
+SUMMARY = "A lightweight TOML v1.0 parser for C."
+HOMEPAGE = "https://github.com/agl-ic-eg/tomlc99"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=95bbe2f9180443b5dcef3fb959804a65"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=606ec2ecca9fcf1170f71df9104a7d29"
 
-SRC_URI = "git://github.com/cktan/tomlc99;protocol=https;branch=master"
+SRC_URI = "git://github.com/agl-ic-eg/tomlc99;protocol=https;branch=main"
 
-PV = "1.0+git${SRCPV}"
-SRCREV = "034b23ed3e4e5ee5345040eabed470f204d7f668"
+PV = "1.1"
+SRCREV = "535a7051d999ef6856ce57407f6f97660009a7f1"
 
 TARGET_CC_ARCH += "${LDFLAGS}"
 
