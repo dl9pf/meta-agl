@@ -1,0 +1,61 @@
+From 76004f40623a259baad782d881014f48653fb152 Mon Sep 17 00:00:00 2001
+From: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+Date: Sun, 11 Oct 2026 02:46:05 +0900
+Subject: [PATCH] Avoid build error that is caused by compile options
+
+Upstream-Status: Pending
+
+Signed-off-by: Naoto Yamaguchi <naoto.yamaguchi@aisin.co.jp>
+---
+ Makefile     | 2 +-
+ src/Makefile | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 14cabe0..6dedb7c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ prefix ?= /usr/local
+ # remove trailing /
+ override prefix := $(prefix:%/=%)
+-DIRS := src simple test
++DIRS := src
+ 
+ BUILDDIRS := $(DIRS:%=build-%)
+ CLEANDIRS := $(DIRS:%=clean-%)
+diff --git a/src/Makefile b/src/Makefile
+index 4a0891c..880184d 100644
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -16,12 +16,12 @@ endif
+ EXEC =
+ 
+ # set up CFLAGS / CXXFLAGS
+-CFLAGS := -std=c17 -Wmissing-declarations -Wall -Wextra -MMD
++CFLAGS += -std=c17 -Wmissing-declarations -Wall -Wextra -MMD
+ 
+ ifdef DEBUG
+     CFLAGS += -O0 -g -fsanitize=address,undefined
+ else
+-    CFLAGS += -O3 -DNDEBUG
++    CFLAGS += -DNDEBUG
+ endif
+ # Add -fpic only for non-Windows platforms
+ ifneq ($(OS), Windows_NT)
+@@ -34,10 +34,10 @@ all: $(EXEC) $(LIB) $(LIB_SHARED)
+ *.o: $(HFILES)
+ 
+ libtomlc17.a: tomlc17.o
+-	ar -rcs $@ $^
++	$(AR) -rcs $@ $^
+ 
+ $(LIB_SHARED): tomlc17.o
+-	$(CC) -shared -o $@ $^
++	$(CC) $(LDFLAGS) -Wl,-soname,$(LIB_SHARED) -shared -o $@ $^
+ 
+ -include $(OBJ:%.o=%.d) $(EXEC:%=%.d)
+ 
+-- 
+2.43.0
+
