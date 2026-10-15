@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-selinux:
+    url: https://git.yoctoproject.org/meta-selinux
+    path: external/meta-selinux
+    branch: wrynose
+  meta-openembedded:
+    layers:
+      meta-python:
+
+local_conf_header:
+  agl-selinux: |
+    require conf/include/agl-selinux.inc

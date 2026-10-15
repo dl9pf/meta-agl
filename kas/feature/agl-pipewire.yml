@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-agl:
+    layers:
+      meta-pipewire:
+  meta-openembedded:
+    layers:
+      meta-multimedia:
+      meta-python:
+
+local_conf_header:
+  agl-pipewire: |
+    require conf/include/agl-pipewire.inc

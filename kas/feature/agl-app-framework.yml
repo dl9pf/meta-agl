@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-agl:
+    layers:
+      meta-app-framework:
+
+local_conf_header:
+  agl-app-framework: |
+    require conf/include/agl-app-framework.inc

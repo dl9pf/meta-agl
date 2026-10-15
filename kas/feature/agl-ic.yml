@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-agl:
+    layers:
+      meta-agl-ic:
+
+local_conf_header:
+  agl-ic: |
+    require conf/include/agl-ic.inc

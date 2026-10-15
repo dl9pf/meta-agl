@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-agl:
+    layers:
+      meta-agl-drm-lease:
+
+local_conf_header:
+  agl-drm-lease: |
+    require conf/include/agl-drm-lease.inc

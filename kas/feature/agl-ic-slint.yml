@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+# Adds the Rust/Slint toolchain layers for the -slint variant of the standalone instrument
+# cluster demo. No local_conf_header content upstream (aglsetup.sh's agl-ic-slint template
+# only adds bblayers entries) and no included.dep - combine with agl-ic.yml explicitly.
+repos:
+  meta-rust-bin:
+    url: https://github.com/rust-embedded/meta-rust-bin
+    path: external/meta-rust-bin
+    branch: master
+  meta-slint:
+    url: https://github.com/slint-ui/meta-slint
+    path: external/meta-slint
+    branch: main

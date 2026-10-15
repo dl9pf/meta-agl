@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: MIT
+header:
+  version: 22
+
+repos:
+  meta-agl:
+    layers:
+      meta-agl-kuksa-val:
+  meta-openembedded:
+    layers:
+      meta-python:
+
+local_conf_header:
+  agl-kuksa-val: |
+    require conf/include/agl-kuksa-val.inc
