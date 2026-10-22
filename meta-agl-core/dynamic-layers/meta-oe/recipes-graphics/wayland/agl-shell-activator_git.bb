@@ -15,6 +15,9 @@ SRCREV = "027d6f814f3d1f2e6b4b4071365b28dadec34109"
 
 PV = "0.0.10+git${SRCPV}"
 
+# Same distro feature requirements as agl-compositor, which this depends on
+require recipes-graphics/wayland/required-distro-features.inc
+
 inherit meson pkgconfig python3native
 
 FILES:${PN} = " ${bindir}/agl-shell-activator"
