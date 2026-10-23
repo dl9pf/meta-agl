@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: MIT
+# Images owned by meta-agl (meta-agl-core). Schema and tools: https://github.com/dl9pf-agl/agl-ci (ci/scripts/_matrix.py).
+# tiers: push-pr = every PR/push, nightly, release = tags, dispatch = manual run only, [] = never in CI.
+machine_eula: {}
+
+images:
+  - target: agl-image-minimal
+    features: []
+    sdk: false
+    tiers: [nightly, release, dispatch]
+    machines:
+      - qemux86-64: {tiers: [push-pr, nightly, release, dispatch]}
+
+  # Widening: dispatch-only until each one builds cleanly, then promote to nightly / push-pr.
+  - target: agl-image-compositor
+    features: []
+    sdk: false
+    tiers: [dispatch]
+    machines: [qemux86-64]
+  - target: agl-image-weston
+    features: []
+    sdk: false
+    tiers: [dispatch]
+    machines: [qemux86-64]
+  - target: agl-image-core-autobuilder
+    features: []
+    sdk: false
+    tiers: [dispatch]
+    machines: [qemux86-64]
+
+# yocto-check-layer: default scope is meta-agl-core (CHECK_LAYERS in the engine).
+check_layers:
+  dependency_roots:
+    - meta-agl
+    - external/openembedded-core
+    - external/meta-openembedded
+  layers:
+    - meta-agl/meta-agl-core

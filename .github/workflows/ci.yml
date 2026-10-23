@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: MIT
+# Thin caller: all CI logic lives in dl9pf-agl/agl-ci, pinned here by full commit SHA (bumped by Dependabot).
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      tier:
+        description: 'Matrix tier to build'
+        type: choice
+        options: [push-pr, nightly, release, dispatch]
+        default: dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@015fce86a7fdee0332e941f29b24c2a8ffd68b1b # main (agl-ci PR #15)
+    with:
+      repo: meta-agl
+      tier: ${{ inputs.tier }}
