@@ -12,13 +12,19 @@ on:
         type: choice
         options: [push-pr, nightly, release, dispatch]
         default: dispatch
+      mode:
+        description: 'build = validate + build; drill = offline fetchall (outage drill)'
+        type: choice
+        options: [build, drill]
+        default: build
 
 permissions:
   contents: read
 
 jobs:
   ci:
-    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@edb0a7ebdee665a50075079cb6b79f1a3362bd62 # main (agl-ci PR #17)
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@39f1b2130d83f762ac0120e0e8817374c8ee51eb # main (agl-ci PR #24)
     with:
       repo: meta-agl
       tier: ${{ inputs.tier }}
+      mode: ${{ inputs.mode || 'build' }}
