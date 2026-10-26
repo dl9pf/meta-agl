@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   ci:
-    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@ad32aa64f6c48396ba200f12fa7f5ff4e198134a # main (agl-ci PR #25)
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@f05d00a865d9915907de06fe633a13a45f952011 # main (agl-ci PR #26)
     with:
       repo: meta-agl
       tier: ${{ inputs.tier }}
