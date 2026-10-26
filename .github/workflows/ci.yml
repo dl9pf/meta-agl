@@ -13,9 +13,9 @@ on:
         options: [push-pr, nightly, release, dispatch]
         default: dispatch
       mode:
-        description: 'build = validate + build; drill = offline fetchall (outage drill)'
+        description: 'build = validate + build; drill = offline fetch (outage drill); fetch = fill the download cache'
         type: choice
-        options: [build, drill]
+        options: [build, drill, fetch]
         default: build
 
 permissions:
@@ -23,8 +23,18 @@ permissions:
 
 jobs:
   ci:
-    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@f05d00a865d9915907de06fe633a13a45f952011 # main (agl-ci PR #26)
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@20a134c33bac97c7d15dbd27617334239e43fa8a # main (agl-ci PR #27)
     with:
       repo: meta-agl
       tier: ${{ inputs.tier }}
       mode: ${{ inputs.mode || 'build' }}
+
+  # Nightly: fetch the sources of every image of the matrix (tier dispatch), also the ones that are not built, so that the
+  # download cache and the source mirror hold them.
+  fetch:
+    if: github.event_name == 'schedule'
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@20a134c33bac97c7d15dbd27617334239e43fa8a # main (agl-ci PR #27)
+    with:
+      repo: meta-agl
+      tier: dispatch
+      mode: fetch
