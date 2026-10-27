@@ -23,7 +23,7 @@ permissions:
 
 jobs:
   ci:
-    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@20a134c33bac97c7d15dbd27617334239e43fa8a # main (agl-ci PR #27)
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@f43ac4c6a8c43e6c6e2b6b5d59b78f701f7039fa # main (agl-ci PR #33)
     with:
       repo: meta-agl
       tier: ${{ inputs.tier }}
@@ -33,7 +33,7 @@ jobs:
   # download cache and the source mirror hold them.
   fetch:
     if: github.event_name == 'schedule'
-    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@20a134c33bac97c7d15dbd27617334239e43fa8a # main (agl-ci PR #27)
+    uses: dl9pf-agl/agl-ci/.github/workflows/layer-ci.yml@f43ac4c6a8c43e6c6e2b6b5d59b78f701f7039fa # main (agl-ci PR #33)
     with:
       repo: meta-agl
       tier: dispatch
