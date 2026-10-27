@@ -108,3 +108,5 @@ design:
 **Note:** For update details on this page please refer
 
 <https://git.automotivelinux.org/AGL/meta-agl/tree/meta-agl.md>
+
+<!-- CI test: fork pull request routing to the untrusted runner. Do not merge. -->
